@@ -14,3 +14,34 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'build'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
+    spotBugsAnalysis: false
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
+    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
+    projectName: 'pet-clinic'
+
+- task: sonarcloud-buildbreaker@2
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
+
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'pet-clinic'
+    scanPath: '${Build.SourcesDirectory}/build/libs'
+    format: 'HTML'
+
+
+
