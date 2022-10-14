@@ -14,8 +14,8 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Sonarcloud'
-    organization: 'devops-test-v3'
-    projectKey: 'DevOps-Test-v3_pet-clinic'
+    organization: 'rsanzana-devsecops-usach'
+    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
     projectName: 'pet-clinic'
 
 - task: Gradle@3
