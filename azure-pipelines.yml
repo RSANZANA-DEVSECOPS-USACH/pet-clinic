@@ -58,4 +58,9 @@ steps:
     trivy image rsanzana/pet-clinic:latest
   displayName: Image Scan
 
-
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker'
+    repository: 'rsanzana/pet-clinic'
+    command: 'push'
+    tags: 'latest'
