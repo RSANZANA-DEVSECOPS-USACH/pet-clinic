@@ -58,6 +58,13 @@ steps:
     trivy image rsanzana/pet-clinic:latest
   displayName: Image Scan
 
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker'
+    command: 'login'
+    
 - task: trivy@1
   inputs:
     image: rsanzana/pet-clinic:latest
+
+
