@@ -2,12 +2,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'DEVSECOPS-USACH'
-    organization: 'rsanzana-devsecops-usach'
-    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
-    projectName: 'pet-clinic'
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
@@ -15,8 +9,14 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: true
+    sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
+    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
+    projectName: 'pet-clinic'
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
