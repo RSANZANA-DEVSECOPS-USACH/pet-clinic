@@ -1,0 +1,26 @@
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
+    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
+    projectName: 'pet-clinic'
+
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: "sonarqube"
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: 'latest'
+  displayName: 'Analyze current Branch'
+
+- task: sonarcloud-buildbreaker@2
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
