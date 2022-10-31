@@ -17,11 +17,6 @@ steps:
     javaHomeOption: 'JDKVersion'
     sonarQubeRunAnalysis: true
     spotBugsAnalysis: false
-- task: sonarcloud-buildbreaker@2
-  displayName: Quiebre stage SAST
-  inputs:
-    SonarCloud: 'DEVSECOPS-USACH'
-    organization: 'rsanzana-devsecops-usach'
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
