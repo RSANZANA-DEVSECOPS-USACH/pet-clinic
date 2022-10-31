@@ -2,6 +2,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
+    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
+    projectName: 'pet-clinic'
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
@@ -9,15 +15,13 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: false
+    sonarQubeRunAnalysis: true
     spotBugsAnalysis: false
-- task: SonarCloudPrepare@1
+- task: sonarcloud-buildbreaker@2
+  displayName: Quiebre stage SAST
   inputs:
     SonarCloud: 'DEVSECOPS-USACH'
     organization: 'rsanzana-devsecops-usach'
-    projectKey: 'RSANZANA-DEVSECOPS-USACH_pet-clinic'
-    projectName: 'pet-clinic'
-
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
@@ -51,7 +55,7 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: 'latest'
 
-- script: | 
+- script: |
     sudo apt-get install -y rpm
     wget https://github.com/aquasecurity/trivy/releases/download/v0.27.1/trivy_0.27.1_Linux-64bit.deb
     sudo dpkg -i trivy_0.27.1_Linux-64bit.deb
