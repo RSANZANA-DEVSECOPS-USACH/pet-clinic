@@ -24,8 +24,15 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: false
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: '2.3.3'
     spotBugsAnalysis: false
+
+- task: sonarcloud-buildbreaker@2
+  inputs:
+    SonarCloud: 'DEVSECOPS-USACH'
+    organization: 'rsanzana-devsecops-usach'
 
 - task: dependency-check-build-task@6
   inputs:
