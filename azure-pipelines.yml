@@ -26,7 +26,7 @@ steps:
     javaHomeOption: 'JDKVersion'
     sonarQubeRunAnalysis: true
     sqGradlePluginVersionChoice: 'specify'
-    sonarQubeGradlePluginVersion: '2.3.3'
+    sonarQubeGradlePluginVersion: '3.3'
     spotBugsAnalysis: false
 
 - task: sonarcloud-buildbreaker@2
